@@ -1,0 +1,84 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <script src='file:///android_asset/app.js'></script>
+    <script src="Misc/jquery.min.js"></script>
+</head>
+	
+<script>
+    //Called after application is started.
+    
+    app.LoadPlugin( "UIExtras" );
+    function OnStart()
+    {
+           
+        app.ShowPopup( "HTML Rocks!" );
+        
+        uix = app.CreateUIExtras();
+    }
+    
+    function btn_OnTouch(){
+       picker = uix.CreateDatePickerDialog( "Pick a Date" );
+       picker.SetOnOk( picker_OnOk );
+       picker.Show();
+    }
+    
+    function picker_OnOk( year, month, day )
+    {
+       var date = new Date();
+       date.setFullYear( year, month, day);
+    
+       app.ShowPopup( date.toDateString() );
+    }
+</script>
+
+<style>
+	body { background-color: #ffffff; }
+    .hello 
+    { 
+        font-size: 30;
+        width: 100%;
+        margin-top: 2em;
+        text-align: center;
+        color: blue;
+    }
+    .resultado{
+        font-size:30px;
+        color:purple;
+    }
+</style>
+
+<body onload="app.Start()">
+
+	<div class=hello> Area del Cuadrado </div>
+	<center><img src="Img/presentacion_app.png"></center>
+	
+	<div align="center">
+	    Ingrese valor al Lado: <input type="text" id="ladoValue" style="width:50px;">
+	    <br>
+	    <h3 class="resultado">...</h3>
+	    
+	    <button onclick="calcular()">Calcular</button>
+	    <br><br>
+	    <button onclick="btn_OnTouch()">Establecer Fecha</button>
+	    
+	</div>
+	
+	<script>
+	    $(window).ready(()=>{
+	        
+	       app.ShowPopup("Cargo la App")
+	       
+	    })
+	    function calcular(){
+	        var lado = $("#ladoValue").val()
+	        //aplicacion
+	        var arec = lado*lado;
+	        $(".resultado").html(arec)
+	        
+	        // vibrar equipo
+	        app.Vibrate( "0,100,30,100,50,300" );
+	    }
+	</script>
+</body>
+</html>
